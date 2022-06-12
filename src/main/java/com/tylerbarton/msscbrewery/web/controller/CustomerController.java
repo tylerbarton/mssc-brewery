@@ -28,7 +28,7 @@ public class CustomerController {
     }
 
     /**
-     *
+     * GET mapping
      * @param customerId Id of the customer
      * @return Response body populated by getCustomerById
      */
