@@ -1,6 +1,7 @@
 package com.tylerbarton.msscbrewery.services;
 
 import com.tylerbarton.msscbrewery.web.model.BeerDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -9,6 +10,7 @@ import java.util.UUID;
  * Endpoint implementation for the BeerService interface.
  */
 @Service
+@Slf4j // Logger
 public class BeerServiceImpl implements BeerService {
 
     /**
@@ -35,5 +37,10 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public void updateBeer(UUID beerId, BeerDto beerDto) {
         // TODO: implement
+    }
+
+    @Override
+    public void deleteBeer(UUID beerId) {
+        log.debug("Deleting beer " + beerId.toString());
     }
 }

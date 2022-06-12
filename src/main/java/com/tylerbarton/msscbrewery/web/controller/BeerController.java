@@ -63,4 +63,14 @@ public class BeerController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT); // Understood request
    }
+
+    /**
+     * Handles DELETE method for a specific UUID
+     */
+   @DeleteMapping({"/{beerId}"})
+   @ResponseStatus(HttpStatus.NO_CONTENT) // To return a status without body
+   public void deleteBeer(@PathVariable("beerId") UUID beerId){
+        beerService.deleteBeer(beerId);
+   }
+
 }
