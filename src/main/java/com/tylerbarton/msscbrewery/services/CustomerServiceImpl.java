@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service            // Needed to wire to controller
+@Service            // Need to declare spring component to wire to controller
 public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDto getCustomerById(UUID customerId) {

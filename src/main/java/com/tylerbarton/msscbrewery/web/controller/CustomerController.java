@@ -30,7 +30,7 @@ public class CustomerController {
     /**
      *
      * @param customerId Id of the customer
-     * @return Response
+     * @return Response body populated by getCustomerById
      */
     @GetMapping("/{customerId}")
     public ResponseEntity<CustomerDto> getCustomer(@PathVariable UUID customerId){

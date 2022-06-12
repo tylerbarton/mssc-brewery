@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 /**
- * Represents a customer object.
+ * Represents a customer data transfer object (dto).
  */
 @Data                   // Getter/Setter, ToString, Equals, Hash on all fields
 @AllArgsConstructor     // Creates a constructor with all args
