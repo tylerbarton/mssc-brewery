@@ -12,6 +12,7 @@ import java.util.UUID;
 /**
  * Handles the input controlling for beer
  */
+@Deprecated     // Indicates in source code that this file is outdated
 @RequestMapping("/api/v1/beer")
 @RestController
 public class BeerController {
