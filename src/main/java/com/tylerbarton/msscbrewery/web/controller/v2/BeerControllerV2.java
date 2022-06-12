@@ -1,7 +1,7 @@
-package com.tylerbarton.msscbrewery.web.controller;
+package com.tylerbarton.msscbrewery.web.controller.v2;
 
-import com.tylerbarton.msscbrewery.services.BeerService;
-import com.tylerbarton.msscbrewery.web.model.BeerDto;
+import com.tylerbarton.msscbrewery.services.v2.BeerServiceV2;
+import com.tylerbarton.msscbrewery.web.model.v2.BeerDtoV2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,18 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-/**
- * Handles the input controlling for beer
- */
-@Deprecated     // Indicates in source code that this file is outdated
-@RequestMapping("/api/v1/beer")
+@RequestMapping("/api/v2/beer")
 @RestController
-public class BeerController {
+public class BeerControllerV2 {
 
     // Handles the service layer
-    private final BeerService beerService;
+    private final BeerServiceV2 beerService;
 
-    public BeerController(BeerService beerService) {
+    public BeerControllerV2(BeerServiceV2 beerService) {
         this.beerService = beerService;
     }
 
@@ -30,8 +26,8 @@ public class BeerController {
      * @return Response body for the unique beer id
      */
     @GetMapping({"/{beerId}"})
-    public ResponseEntity<BeerDto> getBeer(@PathVariable("beerId") UUID beerId){   // PathVariable included for clarity
-        return new ResponseEntity<BeerDto>(beerService.getBeerById(beerId), HttpStatus.OK);
+    public ResponseEntity<BeerDtoV2> getBeer(@PathVariable("beerId") UUID beerId){   // PathVariable included for clarity
+        return new ResponseEntity<BeerDtoV2>(beerService.getBeerById(beerId), HttpStatus.OK);
     }
 
     /**
@@ -40,8 +36,8 @@ public class BeerController {
      * @return URL of the newly created resource
      */
     @PostMapping
-   public ResponseEntity handlePost(@RequestBody BeerDto beerDto){ // RequestBody annotation is needed to bind to object
-        BeerDto savedDto = beerService.saveNewBeer(beerDto);
+    public ResponseEntity handlePost(@RequestBody BeerDtoV2 beerDto){ // RequestBody annotation is needed to bind to object
+        BeerDtoV2 savedDto = beerService.saveNewBeer(beerDto);
 
         // Respond the location of the new resource
         HttpHeaders headers = new HttpHeaders();
@@ -50,7 +46,7 @@ public class BeerController {
         headers.add("Location", "/api/v1/beer" + savedDto.getId().toString());
 
         return new ResponseEntity(headers, HttpStatus.CREATED);
-   }
+    }
 
     /**
      * Handles PUT request
@@ -59,19 +55,19 @@ public class BeerController {
      * @return Response entity with HTTP status
      */
     @PutMapping("/{beerId}") // the system has ownership of this resource - safe guard against client
-   public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto){
+    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDtoV2 beerDto){
         beerService.updateBeer(beerId, beerDto);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT); // Understood request
-   }
+    }
 
     /**
      * Handles DELETE method for a specific UUID
      */
-   @DeleteMapping({"/{beerId}"})
-   @ResponseStatus(HttpStatus.NO_CONTENT) // To return a status without body
-   public void deleteBeer(@PathVariable("beerId") UUID beerId){
+    @DeleteMapping({"/{beerId}"})
+    @ResponseStatus(HttpStatus.NO_CONTENT) // To return a status without body
+    public void deleteBeer(@PathVariable("beerId") UUID beerId){
         beerService.deleteBeer(beerId);
-   }
+    }
 
 }
