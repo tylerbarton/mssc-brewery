@@ -39,7 +39,7 @@ public class BeerController {
      * @return URL of the newly created resource
      */
     @PostMapping
-   public ResponseEntity handlePost(BeerDto beerDto){ // RequestBody annotation is needed to bind to object
+   public ResponseEntity handlePost(@RequestBody BeerDto beerDto){ // RequestBody annotation is needed to bind to object
         BeerDto savedDto = beerService.saveNewBeer(beerDto);
 
         // Respond the location of the new resource
@@ -58,7 +58,7 @@ public class BeerController {
      * @return Response entity with HTTP status
      */
     @PutMapping("/{beerId}") // the system has ownership of this resource - safe guard against client
-   public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, BeerDto beerDto){
+   public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto){
         beerService.updateBeer(beerId, beerDto);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT); // Understood request
