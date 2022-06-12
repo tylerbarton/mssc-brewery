@@ -3,6 +3,7 @@ package com.tylerbarton.msscbrewery.web.controller;
 import com.tylerbarton.msscbrewery.services.CustomerService;
 import com.tylerbarton.msscbrewery.web.model.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,37 @@ public class CustomerController {
         return new ResponseEntity<CustomerDto>(customerService.getCustomerById(customerId), HttpStatus.OK);
     }
 
+    /**
+     * Handles the POST verb
+     * inserts a new customer
+     * @param customerDto Customer information
+     * @return
+     */
+    @PostMapping
+    public ResponseEntity handlePost(@RequestBody CustomerDto customerDto){
+        CustomerDto savedDto = customerService.saveNewCustomer(customerDto);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/api/v1/customer" + savedDto.getId().toString());
+
+        return new ResponseEntity(headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{customerId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void handleUpdate(@PathVariable("customerId") UUID customerId, @RequestBody CustomerDto customerDto){
+        customerService.updateCustomer(customerId, customerDto);
+    }
+
+    /**
+     * Handles the DELETE verb
+     * @param customerId the UUID of the customer to delete
+     */
+    @DeleteMapping({"/{customerId}"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void handleDelete(@PathVariable("customerId") UUID customerId){
+        customerService.deleteCustomer(customerId);
+    }
 
 
 }
