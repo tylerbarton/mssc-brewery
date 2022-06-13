@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 /**
  * Uses MapStruct to convert BeerDto <==> Beer (Entity)
  */
-@Mapper
+@Mapper(uses={DateMapper.class})
 public interface BeerMapper {
     BeerDto beerToBeerDto(Beer beer);
     Beer beerDtoToBeer(BeerDto dto);
