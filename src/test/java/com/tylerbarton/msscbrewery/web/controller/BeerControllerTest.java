@@ -1,14 +1,12 @@
-package web.controllers;
+package com.tylerbarton.msscbrewery.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tylerbarton.msscbrewery.services.BeerService;
-import com.tylerbarton.msscbrewery.web.controller.BeerController;
 import com.tylerbarton.msscbrewery.web.model.BeerDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -24,11 +22,10 @@ import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringRunner.class)
 @WebMvcTest(BeerController.class)
+@RunWith(SpringRunner.class)
 //@AutoConfigureMockMvc //need this in Spring Boot test
 public class BeerControllerTest {
-
     @MockBean
     BeerService beerService;
 
@@ -90,6 +87,5 @@ public class BeerControllerTest {
                 .andExpect(status().isNoContent());
 
         then(beerService).should().updateBeer(any(), any());
-
     }
 }
