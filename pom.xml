@@ -32,6 +32,7 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+<!--		Annotation Processing -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -47,6 +48,12 @@
 <!--					<artifactId>junit</artifactId>-->
 <!--				</exclusion>-->
 <!--			</exclusions>-->
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
 		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>org.junit.jupiter</groupId>-->
