@@ -2,11 +2,13 @@ package com.tylerbarton.msscbrewery.web.controller;
 
 import com.tylerbarton.msscbrewery.services.BeerService;
 import com.tylerbarton.msscbrewery.web.model.BeerDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 /**
@@ -17,6 +19,7 @@ import java.util.UUID;
 @RestController
 public class BeerController {
 
+    @Autowired
     // Handles the service layer
     private final BeerService beerService;
 
@@ -40,7 +43,7 @@ public class BeerController {
      * @return URL of the newly created resource
      */
     @PostMapping
-   public ResponseEntity handlePost(@RequestBody BeerDto beerDto){ // RequestBody annotation is needed to bind to object
+   public ResponseEntity handlePost(@Valid @RequestBody BeerDto beerDto){ // RequestBody annotation is needed to bind to object
         BeerDto savedDto = beerService.saveNewBeer(beerDto);
 
         // Respond the location of the new resource
@@ -59,7 +62,7 @@ public class BeerController {
      * @return Response entity with HTTP status
      */
     @PutMapping("/{beerId}") // the system has ownership of this resource - safe guard against client
-   public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @RequestBody BeerDto beerDto){
+   public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, @Valid @RequestBody BeerDto beerDto){
         beerService.updateBeer(beerId, beerDto);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT); // Understood request
